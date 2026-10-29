@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import java.lang.reflect.Modifier
+import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +17,13 @@ class MainActivity : AppCompatActivity() {
 
         // When the user clicks this button, share the text if not empty
         findViewById<ImageButton>(R.id.shareImageButton).setOnClickListener {
-
+            val text = editText.text.toString()
+            if (text.isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, text)
+                }
+                startActivity(intent)
         }
     }
-}
+} }
